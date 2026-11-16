@@ -12,7 +12,9 @@ export default function AdminGaleria() {
           <h2 className="text-xl font-bold text-gold-primary">Galería del Gimnasio</h2>
 
           <label
-            className={`flex items-center gap-2 bg-gold-primary hover:bg-gold-hover text-bg-base font-bold py-2.5 px-4 rounded-lg transition-colors cursor-pointer ${procesando ? "opacity-50 pointer-events-none" : ""}`}
+            className={`w-full sm:w-auto justify-center flex items-center gap-2 bg-gold-primary hover:bg-gold-hover text-bg-base font-bold py-2.5 px-4 rounded-lg transition-colors cursor-pointer ${
+              procesando ? "opacity-50 pointer-events-none" : ""
+            }`}
           >
             <Upload className="w-5 h-5" />
             {procesando ? "Subiendo imágenes..." : "Subir Imágenes"}
@@ -25,7 +27,7 @@ export default function AdminGaleria() {
         ) : imagenes.length === 0 ? (
           <p className="text-text-muted text-center py-10 font-semibold">No hay imágenes en la galería actualmente.</p>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {imagenes.map((url, index) => (
               <div key={index} className="relative group rounded-lg overflow-hidden border border-border bg-bg-base">
                 <img src={url} alt={`Galería ${index + 1}`} className="w-full h-48 object-cover" />

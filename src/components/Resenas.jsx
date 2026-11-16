@@ -12,8 +12,8 @@ export default function Resenas({ resenas }) {
   const cintaResenas = [...arrayBase, ...arrayBase];
 
   return (
-    <section className="py-12 overflow-hidden bg-[var(--color-bg-base)]">
-      <div className="max-w-7xl mx-auto px-4 mb-8">
+    <section className="w-full overflow-hidden bg-[var(--color-bg-base)] pt-4">
+      <div className="mb-8">
         <h2 className="text-2xl font-bold text-center text-white uppercase tracking-wider">
           Lo que dicen <span className="text-[var(--color-gold-primary)]">nuestros clientes</span>
         </h2>
@@ -22,7 +22,7 @@ export default function Resenas({ resenas }) {
       {/* Contenedor relativo de la cinta con difuminado en los bordes */}
       <div className="relative w-full flex overflow-hidden">
         <div className="absolute top-0 left-0 h-full w-12 md:w-24 bg-gradient-to-r from-[var(--color-bg-base)] to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 h-full w-12 md:w-24 bg-gradient-to-l from-[var(--color-bg-base)] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 h-full w-12 md:w-24 bg-gradient-to-l from-[var(--color-bg-base] to-transparent z-10 pointer-events-none"></div>
 
         {/* Pista de la cinta */}
         <div className="animate-cinta flex gap-4 px-4">

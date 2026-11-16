@@ -3,16 +3,21 @@ import Galeria from "../components/Galeria";
 import Planes from "../components/Planes";
 import Ubicacion from "../components/Ubicacion";
 import Resenas from "../components/Resenas";
+import Categorias from "../components/Categorias";
 
-function Inicio({ gym, planes, resenas }) {
+function Inicio({ gym, planes, resenas, productos }) {
   return (
     <>
       <div className="min-h-screen bg-[var(--color-bg-base)] font-sans">
         <Hero gym={gym} />
 
-        {/* En main se puede cambiar el ancho de todos los componentes, con la etiqueta max-w-7xl */}
-        <main className="flex-grow max-w-7xl w-full mx-auto px-6 py-12 space-y-24">
+        {/* 
+          - max-w-7xl: Modifica el ancho máximo global de todos los componentes.
+          - gap-20: Controla la separación uniforme entre TODAS las secciones a la vez.
+        */}
+        <main className="flex-grow w-full mx-auto px-6 py-16 flex flex-col max-w-7xl gap-20">
           <Galeria imagenes={gym?.imgs} />
+          <Categorias productos={productos} />
           <Planes planes={planes} gym={gym} />
           <Ubicacion ubicacion={gym?.ubicacion} />
           <Resenas resenas={resenas} />

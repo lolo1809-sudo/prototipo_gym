@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../config";
 import { toast } from "sonner";
-import { Image, Store, MessageSquareQuote, CreditCard, Users, UserCheck } from "lucide-react";
+import { Image, Package, Store, MessageSquareQuote, CreditCard, Users, UserCheck } from "lucide-react";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -19,6 +19,13 @@ export default function Admin() {
       descripcion: "Gestiona las imágenes de tu gimnasio.",
       ruta: "/admin/galeria",
       icono: <Image className="w-12 h-12 mb-4 text-text-muted group-hover:text-gold-primary transition-colors" strokeWidth={1.5} />,
+    },
+    {
+      id: "stock",
+      titulo: "Control de Stock",
+      descripcion: "Gestiona los productos, imágenes, y precios de tu catálogo.",
+      ruta: "/admin/stock",
+      icono: <Package className="w-12 h-12 mb-4 text-text-secondary group-hover:text-accent transition-colors" strokeWidth={1.5} />,
     },
     {
       id: "gimnasio",

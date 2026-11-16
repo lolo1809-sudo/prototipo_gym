@@ -90,20 +90,21 @@ export function useSocios() {
 
       if (editandoId) {
         // 1. Actualizar socio
-        const { error: errorSocio } = await supabase.from("socios").update(socioAEnviar).eq("id", editandoId);
-        if (errorSocio) throw errorSocio;
+        const { data: ultimoPago, error: errorBuscarPago } = await supabase.from("pagos").select("id").eq("socio_id", editandoId).order("fecha_pago", { ascending: false }).limit(1).maybeSingle();
+
+        if (errorBuscarPago) throw errorBuscarPago;
 
         // 2. Actualizar el último pago registrado de este socio
-        const { data: ultimoPago } = await supabase.from("pagos").select("id").eq("socio_id", editandoId).order("created_at", { ascending: false }).limit(1).single();
-
         if (ultimoPago) {
-          await supabase
+          const { error: errorUpdatePago } = await supabase
             .from("pagos")
             .update({ monto: Number(form.monto), metodo_pago: form.metodo_pago })
             .eq("id", ultimoPago.id);
+          if (errorUpdatePago) throw errorUpdatePago;
         } else {
           // Si por alguna razón no tenía pago, se lo creamos
-          await supabase.from("pagos").insert([{ socio_id: editandoId, monto: Number(form.monto), metodo_pago: form.metodo_pago }]);
+          const { error: errorInsertPago } = await supabase.from("pagos").insert([{ socio_id: editandoId, monto: Number(form.monto), metodo_pago: form.metodo_pago }]);
+          if (errorInsertPago) throw errorInsertPago;
         }
 
         toast.success("Socio y pago actualizados.");
@@ -130,8 +131,9 @@ export function useSocios() {
   };
 
   const iniciarEdicion = async (socio) => {
-    // Buscar el último pago para rellenar el formulario
-    const { data: pagoData } = await supabase.from("pagos").select("*").eq("socio_id", socio.id).order("created_at", { ascending: false }).limit(1).single();
+    const { data: pagoData } = await supabase.from("pagos").select("*").eq("socio_id", socio.id).order("fecha_pago", { ascending: false }).limit(1).maybeSingle();
+
+    const planDelSocio = planes.find((p) => p.id === socio.plan_id);
 
     setForm({
       nombre: socio.nombre,
@@ -139,8 +141,8 @@ export function useSocios() {
       telefono: socio.telefono || "",
       plan_id: socio.plan_id || "",
       fecha_vencimiento: socio.fecha_vencimiento || "",
-      monto: pagoData ? pagoData.monto : "",
-      metodo_pago: pagoData ? pagoData.metodo_pago : "efectivo",
+      monto: pagoData?.monto ?? planDelSocio?.precio ?? "",
+      metodo_pago: pagoData?.metodo_pago || "efectivo",
     });
     setEditandoId(socio.id);
     window.scrollTo({ top: 0, behavior: "smooth" });

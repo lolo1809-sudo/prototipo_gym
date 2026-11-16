@@ -160,7 +160,7 @@ export default function TablaSocios({ cargando, socios, planes, iniciarEdicion, 
 
       {/* DASHBOARD INFERIOR */}
       {!cargando && socios.length > 0 && (
-        <div className="grid grid-cols-3 gap-4 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
           <div className="bg-bg-card p-4 rounded-custom border border-border shadow-sm flex flex-col items-center justify-center text-center">
             <span className="text-2xl font-bold text-success">{stats.activos}</span>
             <span className="text-xs font-semibold text-text-muted uppercase tracking-wider mt-1">Activos</span>
